@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08131d"><title>NULL // RAIN — The Rain Market</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas tabindex="0" id="game" aria-label="NULL RAIN game world"></canvas>
+  <div class="screen-noise" aria-hidden="true"></div>
+  <header id="masthead"><a href="#" id="brand">N<span>//</span>R <small>AN INDEPENDENT SIGNAL</small></a><div class="header-right"><span class="status-dot"></span><span id="header-status">OFFLINE / SINGLE PLAYER</span><button id="audio-toggle" class="icon-button" title="Toggle audio" aria-label="Toggle audio">♪</button><button id="fullscreen" class="icon-button" title="Fullscreen" aria-label="Fullscreen">⛶</button></div></header>
+  <main id="title-screen">
+    <div class="title-copy"><div class="eyebrow"><span class="line"></span> A CYBERPUNK ACTION / STEALTH ODYSSEY</div><h1>NULL<span>//</span><br>RAIN<span class="title-period">.</span></h1><p class="tagline">The city remembers.<br>It just doesn't remember you.</p><p class="premise">One stolen identity. A district of borrowed memories.<br>Find your own way through the rain.</p></div>
+    <div class="deployment"><div class="section-label"><span>01 / CHOOSE YOUR IMPLANT</span><span>FOUR WAYS IN. YOUR CALL.</span></div><div id="builds" class="build-grid"></div><div class="deploy-row"><button id="deploy" class="primary-button">ENTER THE DISTRICT <span>↗</span></button><button id="continue" class="text-button" hidden>CONTINUE SIGNAL →</button><button id="title-help" class="text-button">FIELD MANUAL <span>?</span></button><span class="episode">CHAPTER 01 <b>THE RAIN MARKET</b></span></div></div>
+    <div class="title-footer"><span>DESIGNED FOR KEYBOARD + MOUSE <i> / </i> HEADPHONES RECOMMENDED</span><span>ORIGINAL WORLD · LOCAL SAVE · NO DOWNLOADS</span></div>
+  </main>
+  <div id="hud" hidden>
+    <div class="vitals"><div class="vitals-label"><b id="build-name">CHRONOBLADE</b><span id="hp-label">100 / 100</span></div><div class="meter health"><i id="hp-fill"></i></div><div class="vitals-bottom"><span id="visibility">◉ EXPOSED</span><span id="salvage">0 SALVAGE</span></div><div class="xp-row"><span id="xp-label">LV 1 · 0 XP</span><button id="talent-button"><kbd>T</kbd> TALENTS</button></div><div class="meter xp"><i id="xp-fill"></i></div></div>
+    <div class="mission"><div class="eyebrow">ACTIVE CONTRACT <span id="mission-fraction">01</span></div><b id="objective"></b><div id="target-distance"></div><div id="district-security"><div><span>DISTRICT HEAT</span><b id="security-state">LOW PROFILE</b></div><div class="security-track" role="progressbar" aria-label="District alarm heat" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="security-fill"></i><span></span><span></span></div><small id="security-hint">Keep it quiet. Keep your advantage.</small></div></div>
+    <button id="pause-button" class="icon-button pause-button" aria-label="Pause">Ⅱ</button>
+    <div id="boss-hud" hidden><div><span>WARDEN / 09</span><span id="boss-status">MUNICIPAL DEFENSE CONSTRUCT</span></div><div class="meter boss-meter"><i id="boss-fill"></i></div></div>
+    <div class="bottom-hud"><div class="control-strip"><span><kbd>A D</kbd> MOVE</span><span><kbd>SPACE</kbd> JUMP ×2</span><span><kbd>SHIFT</kbd> DASH</span><span><kbd>E</kbd> INTERACT</span><button id="map-button"><kbd>M</kbd> MAP</button><button id="help-button"><kbd>H</kbd> HELP</button></div><div class="weapon-readout"><small><kbd>LMB</kbd> <b id="primary-name"></b></small><small><kbd>RMB + LMB</kbd> <b id="secondary-name">NEEDLE</b> <span id="cycle-hint"></span></small><small id="aim-status">RMB AIM / CAPTURE · LMB ATTACK</small></div><div class="implant"><div class="skill-bar"><div class="skill" id="skill-q"><kbd>Q</kbd><b id="skill-q-name"></b><span id="skill-q-status">READY</span></div><div class="skill" id="skill-c"><kbd>C</kbd><b id="skill-c-name"></b><span id="skill-c-status">READY</span></div><div class="skill" id="skill-v"><kbd>V</kbd><b id="skill-v-name"></b><span id="skill-v-status">READY</span></div></div><div class="meter energy"><i id="energy-fill"></i></div></div></div>
+    <div id="interact-prompt" hidden></div><div id="tutorial" hidden></div>
+  </div>
+  <div id="zone-banner" class="zone-banner"><small>DISTRICT 07 / ENTERING</small><b>RAIN MARKET</b></div>
+  <div id="toast" role="status"></div>
+  <div id="modal" class="modal-backdrop" hidden><section id="modal-content" class="modal" aria-modal="true" role="dialog"></section></div>
+  <div id="loading">ESTABLISHING SIGNAL<span>NULL // RAIN</span></div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

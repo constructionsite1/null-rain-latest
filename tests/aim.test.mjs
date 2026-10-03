@@ -4,10 +4,18 @@ import { AimState } from '../src/aim.js';
 
 test('precision aim alone never fires; primary and aimed sidearm are exclusive',()=>{
   const a=new AimState();a.right=true;
-  assert.deepEqual(a.buttons(),{attack:false,secondary:false,aiming:true});
-  a.left=true;assert.deepEqual(a.buttons(),{attack:false,secondary:true,aiming:true});
-  a.right=false;assert.deepEqual(a.buttons(),{attack:true,secondary:false,aiming:false});
+  assert.deepEqual(a.buttons('ghost'),{attack:false,secondary:false,aiming:true});
+  a.left=true;assert.deepEqual(a.buttons('ghost'),{attack:false,secondary:true,aiming:true});
+  a.right=false;assert.deepEqual(a.buttons('ghost'),{attack:true,secondary:false,aiming:false});
   a.reset();assert.equal(a.buttons().attack,false);
+});
+
+test('Chronoblade right click faces cursor without aim or sidearm fire and consumes one parry edge',()=>{
+  const a=new AimState();a.right=true;a.pressGuard();
+  assert.deepEqual(a.buttons('blade'),{attack:false,secondary:false,aiming:false,faceCursor:true});
+  assert.equal(a.consumeGuard(),true);assert.equal(a.consumeGuard(),false);
+  a.left=true;assert.equal(a.buttons('blade').attack,true);assert.equal(a.buttons('blade').secondary,false);
+  a.pressGuard();a.reset();assert.equal(a.consumeGuard(),false);
 });
 test('captured cursor moves freely in screen space and translates with the camera',()=>{
   const a=new AimState();assert.equal(a.world({x:100,y:200}),null);

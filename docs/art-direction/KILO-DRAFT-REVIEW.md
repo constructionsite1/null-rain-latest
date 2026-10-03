@@ -1,0 +1,9 @@
+# Director review of Kilo acceptance draft
+Actual first screen: the giant cyan SAFEHOUSE surface is renderer interactable checkpoint, NOT the shop decoration. Texture checkpoint panel rectangles in interactable(): metal main frame, corrugated shutter inner panel, glass small SYNC screen; preserve labels and interaction geometry. This must not remain a flat blue rectangle.
+In shop branch, the newly applied plaster is immediately covered by opaque rect #07151d. Apply wall/panel materials after opaque bases. Add glass and corrugated/metal door materials after their base fills. Texture should visibly affect dominant surfaces, not be hidden below them.
+Actor layer bounded2x is acceptable; keep full original source RGB and crisp detail. Verify no new errors, camera reset/zoom gradients, and VFX above characters.
+Gradient invalidation uses one global key with actor scale and main scale alternating, thus reconstructs both every frame. Prefer separate actor/world gradient keys if fixing easily; bounded10 lights avoids catastrophe but don't claim cachedperstationaryframe if key alternates.
+
+Actual diner browser review now shows floor material hidden: render() interior platform branch paints every pl rectangle opaque #283b45 after drawInterior texture. Texture interior platform/floor after base fill, theme wood for diner/hangout and metal/pavement for barracks; preserve y880 geometry. This actual first-room foreground slab dominates screen and remains flat. Counter/table props can remain existing but floor must show photopixel material. No fresh browser errors.
+
+Latest shop patch still places paintSurface glass before rect x+w*.73 door and x+w*.75 window, so glass is still covered. Move glass material after both fills, add metal material to door after its fill. Finish narrowly; avoid scanning main/game/aim unrelated modules or files/assets inventories.

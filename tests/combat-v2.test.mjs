@@ -45,8 +45,8 @@ test('three-hit melee combo finishes harder and a downward air hit bounces',()=>
 
 test('parry reflects a projectile and restores energy; cloak breaks on attacks',()=>{
   const g=arena();g.useSkill('v');const energy=g.player.energy;
-  g.projectiles.push({x:195,y:2113,vx:600,vy:0,r:4,enemy:true,damage:20,life:2});
-  g.update(1/60);assert.equal(g.player.hp,100);assert.equal(g.projectiles[0].enemy,false);assert.ok(g.projectiles[0].vx<0);assert.ok(g.player.energy>energy+11);
+  g.projectiles.push({x:245,y:2113,vx:-600,vy:0,r:4,enemy:true,damage:20,life:2});
+  g.update(1/60);assert.equal(g.player.hp,100);assert.equal(g.projectiles[0].enemy,false);assert.ok(g.projectiles[0].vx>0);assert.ok(g.player.energy>energy+11);
   const ghost=arena('ghost');ghost.useSkill('v');ghost.update(1/60);assert.equal(ghost.player.hidden,true);ghost.attack();assert.equal(ghost.player.cloak,0);
 });
 

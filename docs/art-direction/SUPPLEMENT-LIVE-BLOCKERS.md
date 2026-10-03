@@ -1,0 +1,11 @@
+# Root review blockers — repair before character delivery
+
+CURRENT runtime blocker after latest edit: paintActor options include `art` but paintActor signature has NO `art` parameter, and caller passes no art. Actual whole game will crash ReferenceError art is not defined. Pass the already-computed art argument through signature and caller, then actual draw-path validation. State-selector tests do not exercise this bridge.
+
+Additional ACTUAL browser result after crash repair: Chronoblade SIDEARM and MAG RELOAD showcase still show katana idle/run, no sidearm. paintActor passes options without `art`, yet gunish selection depends on o.art. Derive equipped/last-fired firearm identity correctly from existing entity state or pass existing emitter/art metadata from human-actors. Respect melee attacks/parry priorities. `player` option also isn't passed into pickFrame by drawSpriteHuman; include existing player parameter for enemy-family player states. No simulation changes. New Gun staged reload/fire frames ARE visible after source-scale fix.
+
+Actual animation lab reload crashes: ReferenceError hitAge is not defined in sprite-actors.js pickFrame around466. `player` also appears undefined in enemy-family airborne/crouch branches. Fix these with correct existing state and options. Check EVERY state with the actual loaded atlas, not only node syntax.
+
+Supplement atlas has DIFFERENT source body resolution: actions sheet standing Gun reload poses ~275px high; primary Gun standing ~379px high. Reusing main.scale makes the hero shrink to ~39 world units when reloading instead of54. Derive ONE units-per-pixel PER SUPPLEMENT IDENTITY from its own upright reference: Gun reload frame4, Chronoblade standing frame8. Fit that standing source body to54worldunits, retain natural crouch/air compression. Apply same principle to run atlas if its standing/stride source body resolution differs; preserve consistent identity size across sheets. Do not rescale every crouch to54. All frozen descriptors must carry this actual scale.
+
+Civilian alpha is genuine (corners0); ignore low-alpha wash while preserving face/clothes. Finish integration, checks and report. Root will reload actual browser after delivery.

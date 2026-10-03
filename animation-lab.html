@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NULL // RAIN · animation lab</title>
+<style>
+  :root{--ink:#050b12;--panel:#0a1520;--edge:#1d3646;--cyan:#71f8f3;--green:#8cff4a;--dim:#6f8b98;}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:
+    radial-gradient(1200px 700px at 70% -10%,#123043 0%,transparent 60%),
+    radial-gradient(900px 600px at 10% 110%,#0d2c2a 0%,transparent 60%),var(--ink);
+    color:#cfe3ea;font:13px/1.45 "Courier New",monospace}
+  header{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding:10px 16px;
+    border-bottom:1px solid var(--edge);background:#07121ccc;position:sticky;top:0;backdrop-filter:blur(6px);z-index:2}
+  h1{margin:0;font-size:15px;letter-spacing:.22em;color:var(--green);text-shadow:0 0 12px #8cff4a66}
+  h1 small{display:block;font-size:10px;letter-spacing:.3em;color:var(--dim);text-shadow:none}
+  .grow{flex:1}
+  button{font:inherit;font-size:11px;letter-spacing:.14em;color:#bfe6ee;background:#0d1f2b;
+    border:1px solid #27485a;padding:6px 11px;cursor:pointer}
+  button:hover{border-color:var(--green);color:var(--green)}
+  button[aria-pressed="true"]{background:#14301f;border-color:var(--green);color:var(--green)}
+  .grp{display:flex;gap:6px;align-items:center}
+  .grp span{font-size:10px;letter-spacing:.2em;color:var(--dim)}
+  .chip{font-size:10px;letter-spacing:.18em;color:#8fb6c2;border:1px solid #23485a;padding:4px 8px}
+  #art{color:var(--green);border-color:#2f5a3a}
+  #readout{font-size:10px;letter-spacing:.16em;color:var(--dim)}
+  main{padding:12px;overflow:auto;height:calc(100% - 52px)}
+  canvas{display:block;width:100%;height:auto;background:#04080ecc;border:1px solid var(--edge)}
+  footer{padding:8px 16px 16px;font-size:10px;letter-spacing:.16em;color:#55707d}
+  kbd{border:1px solid #2b4c5e;padding:1px 5px;color:#9fd4de}
+</style>
+</head>
+<body>
+<header>
+  <h1>ANIMATION LAB<small>pose preview · movement · strikes · patrols</small></h1>
+  <div class="grp"><span>BUILD</span>
+    <button data-build="blade" aria-pressed="true">CHRONOBLADE</button>
+    <button data-build="ghost" aria-pressed="false">NETRUNNER</button>
+    <button data-build="tank" aria-pressed="false">BREAKER</button>
+    <button data-build="gun" aria-pressed="false">GUNSLINGER</button>
+  </div>
+  <div class="grp">
+    <button id="pause">PAUSE</button>
+    <button id="reset">RESET</button>
+    <button id="step">STEP</button>
+  </div>
+  <div class="grow"></div>
+  <div id="art" class="chip">LOADING ART</div>
+  <div id="readout"></div>
+</header>
+<main><canvas id="stage" width="1500" height="1180"></canvas></main>
+<footer>
+  <kbd>SPACE</kbd> pause · <kbd>R</kbd> reset · <kbd>N</kbd> single frame · <kbd>1</kbd>–<kbd>4</kbd> switch character
+</footer>
+<script type="module" src="./src/animation-lab.js"></script>
+</body>
+</html>

@@ -31,6 +31,13 @@ export class AudioEngine {
   setMuted(value) { this.muted = !!value; this.updateGain(); }
   setVolume(value) { this.volume = this.clamp(value); this.updateGain(); }
   setIntensity(value) { this.intensity = this.clamp(value); }
+  /** Subtle per-district colour: shifts pad brightness and hiss tone. Safe with unknown names. */
+  setDistrict(name) {
+    const t = { neon: [1.25, 1.2], yards: [.8, .85], spires: [1.4, 1.35], undercity: [.65, .7] };
+    const key = String(name || '').toLowerCase();
+    const hit = Object.keys(t).find(k => key.includes(k));
+    [this.padTone, this.hissTone] = hit ? t[hit] : [1, 1];
+  }
   clamp(value) { return Math.max(0, Math.min(1, Number(value) || 0)); }
   updateGain() {
     if (this.ctx) this.master.gain.setTargetAtTime(this.muted ? 0 : this.volume, this.ctx.currentTime, .04);
@@ -81,8 +88,8 @@ export class AudioEngine {
       const roots = [45, 41, 48, 43], root = roots[Math.floor(s / 64) % 4];
       const hz = n => 440 * 2 ** ((n - 69) / 12);
       if (s % 16 === 0) {
-        [0, 7, 12, 15].forEach((n, i) => this.tone(hz(root + n), t + i * .014, beat * 4.5, .028, 'triangle', hz(root + n) * 1.003, 650));
-        this.hiss(t, beat * 4, .013, 3200);
+        [0, 7, 12, 15].forEach((n, i) => this.tone(hz(root + n), t + i * .014, beat * 4.5, .028, 'triangle', hz(root + n) * 1.003, 650 * (this.padTone || 1)));
+        this.hiss(t, beat * 4, .013, 3200 * (this.hissTone || 1));
       }
       if (s % 4 === 0) this.tone(hz(root - 12), t, tick * 2.8, .10, 'triangle', hz(root - 12), 400);
       if (s % 2 === 0) {
@@ -109,6 +116,11 @@ export class AudioEngine {
       case 'dash': noise(.19, .17, 2500); tone(190, .16, .065, 55); break;
       case 'slash': noise(.13, .19, 1800); tone(500, .09, .045, 95); break;
       case 'shoot': tone(130, .1, .18, 32, 'triangle'); noise(.08, .16, 2600); break;
+      case 'reload': noise(.055,.1,4200);tone(260,.08,.04,160,'triangle');break;
+      case 'reloadReady': noise(.035,.09,2200);tone(620,.07,.05,780,'triangle');break;
+      case 'empty': tone(110,.045,.06,70,'triangle');break;
+      case 'deflect': noise(.09,.13,6200);tone(1300,.14,.045,420,'triangle');break;
+      case 'parry': noise(.09,.12,6800);chord([660,990,1320],.22);break;
       case 'hit': noise(.1, .15, 700); tone(100, .13, .15, 40); break;
       case 'hurt': tone(150, .26, .16, 55, 'sawtooth'); noise(.2, .08, 500); break;
       case 'death': tone(180, 1.1, .12, 25, 'triangle'); noise(.6, .08, 500); break;

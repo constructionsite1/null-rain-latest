@@ -5,6 +5,9 @@ export const CAMPAIGN = [
   { id: 'dead-sun', name: '03 / DEAD SUN', biome: 'Amber foundry / orbital uplink', playable: false, description: 'Decide who owns the dawn.' },
 ];
 
+import { attachHoods } from './hoods/index.js';
+import {attachEntrances} from './interiors.js';
+
 /** Fresh mutable data on every new run; no state is shared between saves. */
 export function createWorld() {
   const world = {
@@ -62,12 +65,12 @@ export function createWorld() {
   interact('bench-market', 'upgrade', 370, 2140, 'RIPPER / UPGRADES');
   interact('cache-pulse', 'cache', 1050, 1790, 'PULSE PISTOL', { weapon: 'pulse' });
   interact('relay-market', 'terminal', 2040, 1450, 'MARKET RELAY', { puzzle: true, description: 'Align three signal bands to sever the market surveillance feed.' });
-  interact('checkpoint-spire', 'checkpoint', 2750, 2140, 'MAINTENANCE / SAVE');
+  interact('checkpoint-spire', 'checkpoint', 2670, 2140, 'MAINTENANCE / SAVE');
   interact('bench-spire', 'upgrade', 3050, 2140, 'TECH BENCH / UPGRADES');
   interact('relay-spire', 'terminal', 3400, 1600, 'SPIRE RELAY', { puzzle: true, description: 'Align three signal bands to unlock the archive perimeter.' });
   interact('cache-arc', 'cache', 4430, 1240, 'ARC CARBINE', { weapon: 'arc' });
   interact('cache-scatter', 'cache', 4900, 2140, 'SCATTER CANNON', { weapon: 'scatter' });
-  interact('checkpoint-crown', 'checkpoint', 5600, 2140, 'CROWN / SAVE');
+  interact('checkpoint-crown', 'checkpoint', 5270, 2140, 'CROWN APPROACH / SAVE');
   interact('bench-crown', 'upgrade', 5730, 2140, 'FINAL BENCH / UPGRADES');
   interact('security-market','terminal',1240,2140,'ALARM SUBSTATION / MARKET',{description:'Jam the district alarm for 35 seconds. Patrols can still see and fight you.'});
   interact('security-spire','terminal',3900,1960,'ALARM SUBSTATION / SPIRE',{description:'Silence reinforcements and district alarm for 35 seconds.'});
@@ -130,8 +133,31 @@ export function createWorld() {
   decoration('shop', 2790, 1850, 450, 290, 'MUNICIPAL SYSTEMS', '#37bcb9');
   decoration('shop', 5560, 1880, 410, 260, 'CROWN SERVICE', '#eb995c');
   for (const x of [660, 780, 900, 1110, 1310, 1670, 1940, 2280]) decoration('lantern', x, 1730 + x % 140, 24, 42, '', '#ff765c');
+  // Optional neighborhoods: fire escapes, nooks and side alleys (additive only).
+  platform('fire-escape-a', 60, 1800, 220); ladder(250, 1800, 2140);
+  platform('nook-roof', 1960, 1280, 300); ladder(2100, 1280, 1450);
+  platform('spire-awning', 3260, 1800, 300);
+  platform('alley-low', 4200, 1960, 260);
+  platform('alley-fire-crown', 5560, 2000, 240);
+  platform('crown-nook', 5980, 1420, 260); ladder(6100, 1420, 1600);
+  world.shadows.push({ x: 90, y: 1650, w: 160, h: 150 }, { x: 2010, y: 1130, w: 200, h: 150 }, { x: 3290, y: 1650, w: 200, h: 150 }, { x: 4230, y: 1810, w: 190, h: 150 }, { x: 6010, y: 1270, w: 190, h: 150 });
+  for (const [id, type, x, y] of [
+    ['alley-a', 'shard', 170, 1770], ['alley-b', 'shard', 2100, 1250], ['alley-c', 'health', 4330, 1930],
+    ['alley-d', 'energy', 5680, 1970], ['alley-e', 'shard', 6110, 1390],
+  ]) world.pickups.push({ id, type, x, y, value: type === 'shard' ? 1 : 35 });
+  decoration('awning', 3260, 1800, 300, 30, '', '#35d8df'); decoration('awning', 4200, 1960, 260, 26, '', '#ff765c');
+  decoration('crate', 4300, 2080, 60, 60); decoration('crate', 5640, 2080, 60, 60); decoration('crate', 120, 2080, 60, 60);
+  decoration('lamp', 4330, 1800, 0, 120, '', '#ffae51'); decoration('antenna', 2200, 1190, 0, 90); decoration('antenna', 6150, 1330, 0, 90);
+  decoration('window', 2000, 1300, 200, 70, '', '#ad744449'); decoration('pipe', 70, 1830, 14, 300, '', '#fa4f9e');
   // The simulation and renderer both consume the common interactable list.
   // Keep pickups as a convenient data alias for tooling, sharing object state.
+  attachHoods(world);
   world.interactables.push(...world.pickups);
+  attachEntrances(world);
+  for(const [id,x,label] of [
+    ['market-mid',1400,'MARKET SHELTER'],['utility-east',4900,'SERVICE TUNNEL'],
+    ['bazaar',7480,'BAZAAR / NIGHT CLINIC'],['stacks',9090,'LOTUS / RESIDENT SHELTER'],
+    ['yards',11204,'YARDS / UNION REFUGE'],['spires',11744,'SPIRES / TRANSIT SHELTER']
+  ])interact(`checkpoint-${id}`,'checkpoint',x,2140,`${label} / SAVE`);
   return world;
 }

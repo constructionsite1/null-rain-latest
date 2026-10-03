@@ -35,7 +35,7 @@ test('confirmed sighting and witnessed scatter fire escalate district security',
   const seen=fixture();patrol(seen);frames(seen,1.1);
   assert.equal(seen.stats.alarms,1);assert.ok(seen.security.heat>=.4);assert.equal(seen.security.level,1);
   const loud=fixture();patrol(loud,450);loud.player.secondary='scatter';
-  for(let i=0;i<15;i++){loud.player.attackTimer=0;loud.attack(true,{x:800,y:1800});}
+  for(let i=0;i<15;i++){loud.player.attackTimer=0;loud.player.ammo.scatter=4;/* Isolate witnessed noise from magazine limits. */loud.attack(true,{x:800,y:1800});}
   assert.equal(loud.security.level,2);assert.ok(loud.security.dispatch>0);
   const unwitnessed=fixture();unwitnessed.player.secondary='scatter';unwitnessed.attack(true);
   assert.equal(unwitnessed.security.heat,0,'unheard attacks do not report themselves');

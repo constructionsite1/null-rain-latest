@@ -1,0 +1,9 @@
+# Painted Warden delivery direction
+
+The user rejected geometric CHARACTER designs completely, including villains. Your new geometric Warden still looks like a toy beside painted humans. Root is generating assets/characters/warden-painted-v1.png (pending):4columns2rows, 8poses. Reference-faithful massive human cybernetic heavy enforcer, shaved human face/red visor, black layered armor, muscular exposed mechanical arms, powered red/pink joints and an INDUSTRIAL CLEAVER (not baked gun).
+
+Indices:0idle,1heavy strideA,2strideB,3cleaverWindup,4lowcharge,5cleaverSweep,6stagger,7rage. Side-facing right with alpha, approximate grid. Integrate actual painted Warden in YOUR actors.js (own NEW warden-sprites.js if useful). Preserve w/h86/64 and existing boss mechanics/collision/phases. Node-safe browser image loading/status; foot anchored constant standing scale so windup/charge don't become upright full-height rectangles. Keep boss health bar/phase/status labels, existing danger indicators and telegraph. Add restrained local red powered core glow if useful; do not draw old geometric robot atop painted character.
+
+OpenCode owns shared human sprite-actors.js; don't edit it. You can use exported injection/drawing interface if stable, or standalone tiny Warden atlas renderer in your file. Do not normalize each alpha-trimmed pose to full height. Root will inspect actual image at delivery and actual browser boss. If atlas arrives while you work, read PAINTED-ASSETS-READY.md. Must complete as part of overhaul acceptance; no only-hero improvement.
+
+All3human atlases plus movement atlas already ready. Main/animation-lab currently being browserreviewed as draft. Syntax/load blockers go to owning role. Finish primary presentation integration then read this and complete painted boss before final report. No mocks/broad scans.

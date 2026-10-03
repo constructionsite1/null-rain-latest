@@ -1,0 +1,7 @@
+# Presentation acceptance integration
+
+The character artist now exports SNAP_KEYS, poseSnapshot(e,t), seedClone(clone,snapshot,t) from character-rig.js. Snapshot includes a live-alias `pose` Float64Array; you MUST copy the array at record time, and seedClone private historical actor before ghost draw. Your current hard-coded scalar bridge omits pose and atkOn, so won't preserve exact prior smoothed articulated poses. Read character API/current report before finalizing bridge. Use explicit imports/contract instead of exploratory dynamic name probing. Draw ghost at capture time or freeze exact pose; do not advance live rig or accidentally re-age historical attacks/death. Keep bounded memory.
+
+Latest user villain clarification: they NEED NOT be as intricate as image. Read VILLAIN-DETAIL-BRIEF.md; use broad silhouettes and faction identities, moderate details. Preserve your biped Warden and readable drone silhouette. Human role handles sentries/crews.
+
+Deliver actual animation lab promptly; no more temporary mock development. Director needs visible enlarged actual poses and controls to pause/step and builds. Ensure meaningful staged jump/landing/fire/reload/hurt/death, not a fixed timer state that never progresses. Showcase mirrors should reproduce same state with opposite facing. Use reasonable scale and legible layout. Tests already pass; focus integration and actual review page. Report when finished, then director will review before phase two.

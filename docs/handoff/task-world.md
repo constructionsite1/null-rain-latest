@@ -12,4 +12,3 @@ Add more intricate neighborhoods to the authored level WITHOUT breaking routes: 
 - Run `npm test` before committing; all tests must still pass. Do not weaken tests.
 - Commit with `git add -A && git commit -m "<summary>"` on the current branch. Do not push, do not merge.
 - Keep code style consistent (files are compact, dense one-liners are fine).
-
